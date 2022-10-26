@@ -6,6 +6,7 @@ import { validCar } from '../../../../__tests__/utils/CarsMock';
 import CarsController from '../../../controllers/Cars.controller';
 import CarsService from '../../../services/Cars.service';
 import CarsModel from '../../../models/Cars.model';
+import { carMockWithId } from '../../mocks/Cars.mock';
 
 
 describe('Cars Controller', () => {
@@ -19,6 +20,8 @@ describe('Cars Controller', () => {
 
   before(() => {
     sinon.stub(carsService, 'create').resolves(validCar);
+    sinon.stub(carsService, 'read').resolves([carMockWithId]);
+    sinon.stub(carsService, 'readOne').resolves(carMockWithId);
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns(res);
@@ -34,5 +37,20 @@ describe('Cars Controller', () => {
 
     expect((res.status as sinon.SinonStub).calledWith(201)).to.be.true;
     expect((res.json as sinon.SinonStub).calledWith(validCar)).to.be.true;
+  });
+
+  it('retorna todos os carros', async () => {
+    await carsController.read(req, res);
+
+    expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+    expect((res.json as sinon.SinonStub).calledWith([carMockWithId])).to.be.true;
+  });
+
+  it('retorna o carro específico', async () => {
+    req.params = { id: 'lalalala' }
+    await carsController.readOne(req, res);
+    
+    expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+    expect((res.json as sinon.SinonStub).calledWith(carMockWithId)).to.be.true;
   });
 });
