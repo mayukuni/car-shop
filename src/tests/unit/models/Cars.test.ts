@@ -10,11 +10,10 @@ import { ICar } from '../../../interfaces/ICar';
 
 describe('Cars Model', () => {
   const carsModel = new CarsModel();
-  const carsList = [carMockWithId]
 
   before(async () => {
     sinon.stub(Model, 'create').resolves(carMockWithId);
-    sinon.stub(Model, 'find').resolves(carsList);
+    sinon.stub(Model, 'find').resolves([carMockWithId]);
     sinon.stub(Model, 'findOne').resolves(carMockWithId);
   });
 
@@ -30,15 +29,11 @@ describe('Cars Model', () => {
 	it('retorna todos os carros', async () => {
 		const cars = await carsModel.read();
 		expect(cars).to.be.an('array');
-    // cars.forEach((car: ICar, index: number) => {
-    //   expect(car).to.be.deep.equal(carsList)
-    // });
+    expect(cars).to.be.deep.equal([carMockWithId]);
 	});
 
-// resolver depois
-
   // it('retorna o carro específico', async () => {
-  //   const car = await carsModel.readOne('1');
+  //   const car = await carsModel.readOne(carMockWithId._id);
   //   expect(car).to.be.deep.equal(carMockWithId);
   // });
 
