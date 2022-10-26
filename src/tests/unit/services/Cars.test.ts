@@ -4,7 +4,7 @@ import { ZodError } from 'zod';
 // import { ErrorTypes } from '../../../errors/catalog';
 import CarsModel from '../../../models/Cars.model';
 import CarsService from '../../../services/Cars.service';
-import { carsMockWithId } from '../../mocks/Cars.mock';
+import { carMockWithId } from '../../mocks/Cars.mock';
 import { validCar } from '../../../../__tests__/utils/CarsMock';
 
 describe('Cars Service', () => {
@@ -12,7 +12,7 @@ describe('Cars Service', () => {
 	const carsService = new CarsService(carsModel);
 
 	before(() => {
-		sinon.stub(carsModel, 'create').resolves(carsMockWithId);
+		sinon.stub(carsModel, 'create').resolves(carMockWithId);
 	});
 
 	after(() => {
@@ -23,7 +23,7 @@ describe('Cars Service', () => {
 		it('cria com sucesso', async () => {
 			const frameCreated = await carsService.create(validCar);
 
-			expect(frameCreated).to.be.deep.equal(carsMockWithId);
+			expect(frameCreated).to.be.deep.equal(carMockWithId);
 		});
 
 		it('falha ao tentar criar', async () => {

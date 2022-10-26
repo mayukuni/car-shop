@@ -9,7 +9,7 @@ import { ICar } from '../../interfaces/ICar';
 //   doorsQty: 2
 // };
 
-const carsMockWithId:ICar & { _id:string } = {
+const carMockWithId:ICar & { _id:string } = {
   _id: '1',
   model: 'Uno da Escada',
   year: 1963,
@@ -19,4 +19,4 @@ const carsMockWithId:ICar & { _id:string } = {
   doorsQty: 2
 };
 
-export { carsMockWithId };
+export { carMockWithId };
